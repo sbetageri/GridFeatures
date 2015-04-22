@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import java.lang.*;
 
 /**
  * Created by sri on 18/4/15.
@@ -45,9 +46,22 @@ public class FeatureExtraction {
 
     void display() {
         for(Integer keys : feat.keySet()) {
-            System.out.println("GRID  : " + keys);
-            System.out.println("SLOPE : " + feat.get(keys).slope);
+            System.out.println(Double.toHexString(feat.get(keys).angle));
         }
+    }
+
+    String getByteArray() {
+        StringBuilder featVect = new StringBuilder();
+        int count = 0;
+        for(Integer key : feat.keySet()) {
+            Grid obj = feat.get(key);
+            Double ang = feat.get(key).angle;
+            featVect.append(obj.gridNum);
+            featVect.append('\n');
+            featVect.append(Double.toHexString(feat.get(key).angle));
+            featVect.append('\n');
+        }
+        return featVect.toString();
     }
 
     int calcGrid(int i, int j) {

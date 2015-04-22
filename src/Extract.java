@@ -30,7 +30,7 @@ public class Extract {
         extractChar(image);
         for (int i = 0; i < pChar.size(); i++) {
             System.out.println("PixelCharacter");
-            pChar.get(i).showPixels();
+//            pChar.get(i).showPixels();
         }
     }
 

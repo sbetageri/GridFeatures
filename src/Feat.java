@@ -1,6 +1,8 @@
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -15,6 +17,12 @@ public class Feat {
         BufferedImage image = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/gaBW.bmp"));
         Extract pix = new Extract(image);
         FeatureExtraction vect = new FeatureExtraction(image, pix.pChar.get(0));
-        vect.display();
+        String features = vect.getByteArray();
+        System.out.println(features);
+        File out = new File("/home/sri/p/proj/trial/feat/hexVal.txt");
+        FileWriter fw = new FileWriter(out);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(features);
+        bw.close();
     }
 }

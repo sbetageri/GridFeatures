@@ -17,6 +17,7 @@ public class Grid {
     Pixel end;   // ending point of the slope
     // Also the bottom most point
     double slope;
+    double angle;
 
     Grid(int num) {
         start = new Pixel(Integer.MIN_VALUE, Integer.MIN_VALUE);
@@ -40,6 +41,7 @@ public class Grid {
 
     void calcSlope() {
         slope = (start.j - end.j) / (double)(start.i - end.i);
+        angle = Math.toDegrees(Math.atan(slope));
     }
 
     void setGridNum(int num) {
