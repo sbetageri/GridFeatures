@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by sri on 31/3/15.
  */
 public class Extract {
-    // Extracts and places the co-ordinates in an array of PixelCharacter
+    // Supposed to extract and place the co-ordinates of the character in an array of PixelCharacter
     BufferedImage image;
     int height; // height of the image
     int width; // width of the image
@@ -19,23 +19,29 @@ public class Extract {
 
     Extract(BufferedImage img) throws IOException {
         image = img;
-        OutlineChar trial = new OutlineChar(image);
-        pix = trial.getPixelList();
-        image = trial.getImage();
+        OutlineChar trial = new OutlineChar(image); // gets the outline of the given character
+        pix = trial.getPixelList(); // gets the pixels that belong to the outline of the character
+        image = trial.getImage(); // gets the updated BufferedImage,
         height = image.getHeight();
         width = image.getWidth();
         numChar = 0;
         pChar = new ArrayList<PixelCharacter>();
-        int[] rCol = new int[4];
-        rCol[0] = (new Color(255, 0, 0)).getRGB();
-        for (int i = 1; i < 4; i++)
-            rCol[i] = rCol[i - 1];
+
+
+        //Somewhat redundant in this case
         extractChar(image);
+
+
         System.out.println(pChar.size());
         for (int i = 0; i < pChar.size(); i++) {
             System.out.println("PixelCharacter");
             pChar.get(i).showPixels();
         }
+        /*
+            TODO
+            OutlineChar should come after extract and outline should
+            use pChar to form the outline of the character
+         */
     }
 
     Extract() throws IOException {

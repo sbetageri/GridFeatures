@@ -5,6 +5,7 @@ import java.util.HashMap;
  */
 public class Features {
     // CLASS MIGHT BE REDUNDANT
+    // Class has proved to be REDUNDANT
     /*
         Hashmap stores the grid number as key
         The object is a grid object with a slope and the grid number in the value

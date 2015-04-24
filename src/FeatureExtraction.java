@@ -9,6 +9,11 @@ import java.lang.*;
  */
 public class FeatureExtraction {
     // Extracts the features for each character
+    /*
+        For each pixel, the grid to which it belongs to is calculated
+        Once the grid is identified, the pixel is checked to see if it is the topmost grid or the bottommost
+        For each new assignment, the slope is recalculated.
+     */
     BufferedImage img;
     Pixel start;
     Pixel end;
@@ -16,16 +21,19 @@ public class FeatureExtraction {
     int vDist; // Vertical distances between the grids
     HashMap<Integer, Grid> feat;
 
-    FeatureExtraction(ArrayList<Pixel> pix, Pixel sPix, Pixel ePix) {
-        start = sPix;
-        end = ePix;
-        hDist = (end.i - start.i) / Grid.numHGrid;
-        vDist = (end.j - start.j) / Grid.numVGrid;
-        System.out.println("horizontal dist : " + hDist);
-        System.out.println("vertical dist : " + vDist);
+    FeatureExtraction(ArrayList<Pixel> pix, PixelCharacter pChar) {
+        // boundary of the character
+        // Ha Ha, this constructor i
+        start = pChar.start;
+        end = pChar.end;
 
-        feat = new HashMap<Integer, Grid>();
+        hDist = (end.i - start.i) / Grid.numHGrid; // Horizontal length of each grid
+        vDist = (end.j - start.j) / Grid.numVGrid; // vertical length of each grid
+
+        feat = new HashMap<Integer, Grid>(); // Hashmap for easy retrieval of the specific grid
+
         for(int i = 0; i < pix.size(); i++) {
+            // For each pixel, calculate the grid number and assign it to the appropriate grid
             Pixel point = pix.get(i);
             Integer gridNum = calcGrid(point);
             if(feat.containsKey(gridNum)) {
@@ -37,7 +45,6 @@ public class FeatureExtraction {
                 feat.put(gridNum, obj);
             }
         }
-        System.out.println("Number of grids used : " + feat.size());
     }
 
     FeatureExtraction(BufferedImage image, PixelCharacter point) {
@@ -78,26 +85,19 @@ public class FeatureExtraction {
         for(Integer keys : feat.keySet()) {
             Grid obj = feat.get(keys);
             System.out.println("gridNUm: " + obj.gridNum);
-//            System.out.print("start : ");
-//            obj.start.display();
-//            System.out.print("end : ");
-//            obj.end.display();
             System.out.println("slope : " + obj.slope);
             System.out.println("angle : " + obj.angle);
-//            System.out.println(Double.toHexString(feat.get(keys).angle));
         }
     }
 
-    String getByteArray() {
+    String getArray() {
         StringBuilder featVect = new StringBuilder();
-        int count = 0;
         for(Integer key : feat.keySet()) {
             Grid obj = feat.get(key);
             featVect.append(obj.gridNum);
             featVect.append('\n');
             featVect.append(Double.toString(feat.get(key).angle));
             featVect.append('\n');
-            count++;
         }
         return featVect.toString();
     }
@@ -108,8 +108,17 @@ public class FeatureExtraction {
 
     int calcGrid(int i, int j) {
         // Calcs the grid number
+
         int h = (i - start.i) / hDist;
+        // The horizontal distance of the pixel from the boundary
+        // is then divided by the horizontal length to find the grid number
+
         int v = (j - start.j) / vDist;
+        // Same logic as horizontal grid number
+
         return new Integer(h * 100 + v);
+        // Has to be Integer for hashmap, primitives aren't allowed to be a key in a hashmap
+        // The grid number is made up of the number of grid offsets from the start boundary
+        // For more details and a better explanation, ask developer in charge
     }
 }
