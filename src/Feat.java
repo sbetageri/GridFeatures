@@ -14,12 +14,19 @@ public class Feat {
         in the Grid object arraylist
      */
     public static void main(String[] args) throws IOException {
-        BufferedImage image = ImageIO.read(new File("/home/sri/p/proj/test/ka/ka60.bmp"));
+        String source = "/home/sri/p/proj/test/ka/ka96BW.bmp";
+        String dest = "/home/sri/p/proj/featVal/ka/hexVal96.txt";
+        BufferedImage image = ImageIO.read(new File(source));
+        image = image.getSubimage(1, 1, image.getWidth() - 1, image.getHeight() - 1);
+//        File out = new File("/home/sri/p/proj/test/ka/ka54BWBORDER.bmp");
+//        ImageIO.write(image, "bmp", out);
         Extract pix = new Extract(image);
-        FeatureExtraction vect = new FeatureExtraction(image, pix.pChar.get(0));
-        String features = vect.getByteArray();
-        System.out.println(features);
-        File out = new File("/home/sri/p/proj/trial/feat/hexKa60.txt");
+//        FeatureExtraction vect = new FeatureExtraction(image, pix.pChar.get(0));
+        FeatureExtraction trial = new FeatureExtraction(pix.pix, pix.pChar.get(0).start, pix.pChar.get(0).end);
+//        trial.display();
+        String features = trial.getByteArray();
+//        vect.display();
+        File out = new File(dest);
         FileWriter fw = new FileWriter(out);
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write(features);

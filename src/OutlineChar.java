@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by sri on 8/4/15.
@@ -11,22 +12,52 @@ public class OutlineChar {
     BufferedImage image;
     int height;
     int width;
+    ArrayList<Pixel> pix;
 
     OutlineChar(BufferedImage obj) throws IOException {
         image = obj;
         height = obj.getHeight();
         width = obj.getWidth();
+        pix = new ArrayList<Pixel>();
         BufferedImage outline = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        int count = 0;
         for(int i = 1; i < height - 1; i++)
             for(int j = 1; j < width - 1; j++) {
                 if(isBoundaryPixel(j, i)) {
+                    Pixel point = new Pixel(j, i);
+                    pix.add(point);
                     outline.setRGB(j, i, Color.BLACK.getRGB());
                 } else {
                     outline.setRGB(j, i, Color.WHITE.getRGB());
                 }
             }
-        File border = new File("/home/sri/p/proj/trial/IMG/gBORDER.bmp");
-        ImageIO.write(outline, "bmp", border);
+        System.out.println("Count : " + count);
+    }
+
+    ArrayList<Pixel> getPixelList() {
+        return pix;
+    }
+
+    OutlineChar(BufferedImage obj, Pixel start, Pixel end) throws IOException {
+        image = obj;
+        height = obj.getHeight();
+        width = obj.getWidth();
+        pix = new ArrayList<Pixel>();
+        BufferedImage outline = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        for (int i = start.i; i < end.j; i++)
+            for (int j = start.i; j < end.i; j++) {
+                if (isBoundaryPixel(j, i)) {
+                    Pixel point = new Pixel(j, i);
+                    pix.add(point);
+                    outline.setRGB(j, i, Color.BLACK.getRGB());
+                } else {
+                    outline.setRGB(j, i, Color.WHITE.getRGB());
+                }
+            }
+    }
+
+    BufferedImage getImage() {
+        return image;
     }
 
     boolean isBoundaryPixel(int i, int j) {

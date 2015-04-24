@@ -14,11 +14,14 @@ public class Extract {
     int height; // height of the image
     int width; // width of the image
     ArrayList<PixelCharacter> pChar; // Has list of all pixels
+    ArrayList<Pixel> pix;
     int numChar;
 
     Extract(BufferedImage img) throws IOException {
         image = img;
         OutlineChar trial = new OutlineChar(image);
+        pix = trial.getPixelList();
+        image = trial.getImage();
         height = image.getHeight();
         width = image.getWidth();
         numChar = 0;
@@ -28,9 +31,10 @@ public class Extract {
         for (int i = 1; i < 4; i++)
             rCol[i] = rCol[i - 1];
         extractChar(image);
+        System.out.println(pChar.size());
         for (int i = 0; i < pChar.size(); i++) {
             System.out.println("PixelCharacter");
-//            pChar.get(i).showPixels();
+            pChar.get(i).showPixels();
         }
     }
 
