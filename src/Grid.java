@@ -2,6 +2,10 @@
  * Created by sri on 16/4/15.
  */
 public class Grid {
+    /*
+        TODO
+        Change name of the start and end to appropriate ones
+     */
 
     static int numHGrid; // number of horizontal grids   POSSIBLY A CONSTANT
     static int numVGrid; // number of vertical grids   POSSIBLY A CONSTANT

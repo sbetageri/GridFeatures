@@ -14,7 +14,7 @@ public class Extract {
     int height; // height of the image
     int width; // width of the image
     ArrayList<PixelCharacter> pChar; // Has list of all pixels
-    ArrayList<Pixel> pix;
+    ArrayList<Pixel> pix; // outline of the character
     int numChar;
 
     Extract(BufferedImage img) throws IOException {

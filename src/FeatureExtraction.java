@@ -21,6 +21,10 @@ public class FeatureExtraction {
     int vDist; // Vertical distances between the grids
     HashMap<Integer, Grid> feat;
 
+    /*
+        TODO
+        Index the grids from 1
+     */
     FeatureExtraction(ArrayList<Pixel> pix, PixelCharacter pChar) {
         // boundary of the character
         // Ha Ha, this constructor i
