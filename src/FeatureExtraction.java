@@ -99,7 +99,7 @@ public class FeatureExtraction {
         for(Integer key : feat.keySet()) {
             Grid obj = feat.get(key);
             featVect.append(obj.gridNum);
-            featVect.append('\n');
+            featVect.append(',');
             featVect.append(Double.toString(feat.get(key).angle));
             featVect.append('\n');
         }
