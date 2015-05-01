@@ -33,6 +33,8 @@ public class FeatureExtraction {
 
         hDist = (end.i - start.i) / Grid.numHGrid; // Horizontal length of each grid
         vDist = (end.j - start.j) / Grid.numVGrid; // vertical length of each grid
+        System.out.println("horizontal dist : " + hDist);
+        System.out.println("vertical dist : " + vDist);
 
         feat = new HashMap<Integer, Grid>(); // Hashmap for easy retrieval of the specific grid
 

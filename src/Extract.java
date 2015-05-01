@@ -135,6 +135,8 @@ public class Extract {
                     end.i = i;
                     break;
             }
+            if(i == width - 1)
+                end.i = width;
         }
         return flag;
     }

@@ -28,6 +28,14 @@ public class PixelCharacter {
         end.display();
     }
 
+    int getWidth() {
+        return end.i - start.i;
+    }
+
+    int getHeight() {
+        return end.j - start.j;
+    }
+
     ArrayList<Pixel> getCharPoints(BufferedImage img) {
         ArrayList<Pixel> obj = new ArrayList<Pixel>();
         for(int i = start.i; i <= end.i; i++) {

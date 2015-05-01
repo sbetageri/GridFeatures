@@ -14,8 +14,10 @@ public class Feat {
         in the Grid object arraylist
      */
     public static void main(String[] args) throws IOException {
-        String source = "/home/sri/p/proj/test/ra.bmp"; // source of the image
-        String dest = "/home/sri/p/proj/featVal/ra.txt"; // destination of the features
+        String source = "/home/sri/p/proj/featVal/auto1BW.bmp"; // source of the image
+        String dest = "/home/sri/p/proj/featVal/auto"; // destination of the features
+        String txt = ".txt";
+        String blackWhite = "BW.bmp";
 //        /*
 //        String[] num = { "6",
 //                "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
@@ -35,21 +37,39 @@ public class Feat {
 //            String source = src.toString();
 //            String dest = dst.toString();
 //            */
-            BufferedImage image = ImageIO.read(new File(source));
-            ImageBlackNWhite obj = new ImageBlackNWhite(image);
-            image = obj.getNewImage();
-            image = image.getSubimage(1, 1, image.getWidth() - 1, image.getHeight() - 1); // Crops extra borders
-            Extract extractedChar = new Extract(image); //
-            PixelCharacter pChar = extractedChar.pChar.get(0);
-
+        BufferedImage image = ImageIO.read(new File(source));
+        ImageBlackNWhite obj = new ImageBlackNWhite(image);
+        image = obj.getNewImage();
+//        image = image.getSubimage(1, 1, image.getWidth() - 1, image.getHeight() - 1); // Crops extra borders
+        Extract extractedChar = new Extract(image); //
+        System.out.println("Num pixelcharacters : " + extractedChar.pChar.size());
+        for(int i = 0; i < extractedChar.pChar.size(); i++) {
+            PixelCharacter pChar = extractedChar.pChar.get(i);
+            StringBuilder picDest = new StringBuilder(dest);
+            StringBuilder featDest = new StringBuilder(dest);
+            picDest.append(i);
+            featDest.append(i);
+            picDest.append(blackWhite);
+            featDest.append(txt);
+            pChar.showPixels();
+//            BufferedImage temp = image.getSubimage(pChar.start.i, pChar.start.j, pChar.getWidth(), pChar.getHeight());
+            File picOut = new File(picDest.toString());
+            ImageIO.write(image, "bmp", picOut);
             FeatureExtraction trial = new FeatureExtraction(extractedChar.pix, pChar);
-            // Extracts the features from the outline of the character
-
             String features = trial.getArray();
-            File out = new File(dest);
+            File out = new File(featDest.toString());
             FileWriter fw = new FileWriter(out);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(features);
             bw.close();
+        }
+            // Extracts the features from the outline of the character
+
+//            String features = trial.getArray();
+//            File out = new File(dest);
+//            FileWriter fw = new FileWriter(out);
+//            BufferedWriter bw = new BufferedWriter(fw);
+//            bw.write(features);
+//            bw.close();
     }
 }
