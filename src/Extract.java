@@ -102,6 +102,8 @@ public class Extract {
                 end.j = i;
                 break;
             }
+            if( i == height - 1)
+                end.j = height - 1;
         }
 
     }

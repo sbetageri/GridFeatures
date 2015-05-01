@@ -14,9 +14,9 @@ public class Feat {
         in the Grid object arraylist
      */
     public static void main(String[] args) throws IOException {
-        String source = "/home/sri/p/proj/featVal/auto1BW.bmp"; // source of the image
-        String dest = "/home/sri/p/proj/featVal/auto"; // destination of the features
-        String txt = ".txt";
+        String source = "C:\\Users\\Sri\\Desktop\\Proj\\trial\\first.bmp"; // source of the image
+        String dest = "C:\\Users\\Sri\\Desktop\\Proj\\trial\\"; // destination of the features
+//        String txt = ".txt";
         String blackWhite = "BW.bmp";
 //        /*
 //        String[] num = { "6",
@@ -37,33 +37,41 @@ public class Feat {
 //            String source = src.toString();
 //            String dest = dst.toString();
 //            */
-        BufferedImage image = ImageIO.read(new File(source));
-        ImageBlackNWhite obj = new ImageBlackNWhite(image);
-        image = obj.getNewImage();
+//        for (int i = 3; i < 4; i++) {
+//            StringBuilder source = new StringBuilder("C:\\Users\\Sri\\Desktop\\Proj\\trial\\");
+//            source.append(i);
+//            source.append("BW.bmp");
+//            StringBuilder dest = new StringBuilder("C:\\Users\\Sri\\Desktop\\Proj\\trial\\");
+//            dest.append(i);
+//            dest.append(".txt");
+            BufferedImage image = ImageIO.read(new File(source));
+            ImageBlackNWhite obj = new ImageBlackNWhite(image);
+            image = obj.getNewImage();
 //        image = image.getSubimage(1, 1, image.getWidth() - 1, image.getHeight() - 1); // Crops extra borders
-        Extract extractedChar = new Extract(image); //
+            Extract extractedChar = new Extract(image); //
         System.out.println("Num pixelcharacters : " + extractedChar.pChar.size());
         for(int i = 0; i < extractedChar.pChar.size(); i++) {
             PixelCharacter pChar = extractedChar.pChar.get(i);
             StringBuilder picDest = new StringBuilder(dest);
-            StringBuilder featDest = new StringBuilder(dest);
+//            StringBuilder featDest = new StringBuilder(dest);
             picDest.append(i);
-            featDest.append(i);
+//            featDest.append(i);
             picDest.append(blackWhite);
-            featDest.append(txt);
-            pChar.showPixels();
-//            BufferedImage temp = image.getSubimage(pChar.start.i, pChar.start.j, pChar.getWidth(), pChar.getHeight());
+//            featDest.append(txt);
+//            pChar.showPixels();
+            BufferedImage temp = image.getSubimage(pChar.start.i, pChar.start.j, pChar.getWidth(), pChar.getHeight());
             File picOut = new File(picDest.toString());
-            ImageIO.write(image, "bmp", picOut);
+            ImageIO.write(temp, "bmp", picOut);
             FeatureExtraction trial = new FeatureExtraction(extractedChar.pix, pChar);
-            String features = trial.getArray();
-            File out = new File(featDest.toString());
-            FileWriter fw = new FileWriter(out);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(features);
-            bw.close();
+//            String features = trial.getArray();
+//            File out = new File(dest.toString());
+//            FileWriter fw = new FileWriter(out);
+//            BufferedWriter bw = new BufferedWriter(fw);
+//            bw.write(features);
+//            bw.close();
         }
-            // Extracts the features from the outline of the character
+    }
+    // Extracts the features from the outline of the character
 
 //            String features = trial.getArray();
 //            File out = new File(dest);
@@ -71,5 +79,4 @@ public class Feat {
 //            BufferedWriter bw = new BufferedWriter(fw);
 //            bw.write(features);
 //            bw.close();
-    }
 }
