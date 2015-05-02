@@ -107,7 +107,7 @@ public class FeatureExtraction {
             featVect.append(obj.gridNum);
             featVect.append(',');
             featVect.append(Double.toString(feat.get(key).angle));
-            featVect.append('\n');
+            featVect.append("\r\n");
         }
         return featVect.toString();
     }

@@ -14,7 +14,7 @@ public class Feat {
         in the Grid object arraylist
      */
     public static void main(String[] args) throws IOException {
-        String source = "/home/sri/p/proj/featVal/kannadaBW.bmp"; // source of the image
+        String source = "/home/sri/p/proj/featVal/auto1BW.bmp"; // source of the image
         String dest = "/home/sri/p/proj/featVal/auto"; // destination of the features
         String txt = ".txt";
         String blackWhite = "BW.bmp";
@@ -42,7 +42,6 @@ public class Feat {
         image = obj.getNewImage();
 //        image = image.getSubimage(1, 1, image.getWidth() - 1, image.getHeight() - 1); // Crops extra borders
         Extract extractedChar = new Extract(image); //
-        System.out.println("extracted character pix : " + extractedChar.pix.size());
         System.out.println("Num pixelcharacters : " + extractedChar.pChar.size());
         for(int i = 0; i < extractedChar.pChar.size(); i++) {
             PixelCharacter pChar = extractedChar.pChar.get(i);
@@ -53,20 +52,12 @@ public class Feat {
             picDest.append(blackWhite);
             featDest.append(txt);
             pChar.showPixels();
-            BufferedImage temp = image.getSubimage(pChar.start.i, pChar.start.j, pChar.getWidth(), pChar.getHeight());
+//            BufferedImage temp = image.getSubimage(pChar.start.i, pChar.start.j, pChar.getWidth(), pChar.getHeight());
             File picOut = new File(picDest.toString());
-            ImageIO.write(temp, "bmp", picOut);
-            System.out.println("TEMP IMAGE:");
-            pChar.showPixels();
-            System.out.println("TEMP width:" + temp.getWidth());
-            System.out.println("TEMP height:" + temp.getHeight());
-            PixelCharacter tChar = new PixelCharacter();
-            tChar.end.i=temp.getWidth();
-            tChar.end.j=temp.getHeight();
-            FeatureExtraction trial = new FeatureExtraction(temp, tChar);
+            ImageIO.write(image, "bmp", picOut);
+            FeatureExtraction trial = new FeatureExtraction(extractedChar.pix, pChar);
             String features = trial.getArray();
             File out = new File(featDest.toString());
-
             FileWriter fw = new FileWriter(out);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(features);
