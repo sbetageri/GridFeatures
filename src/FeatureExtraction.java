@@ -62,11 +62,15 @@ public class FeatureExtraction {
         vDist = (end.j - start.j) / Grid.numVGrid;
         System.out.println("horizontal dist : " + hDist);
         System.out.println("vertical dist : " + vDist);
+        System.out.println("horizontal dist : " + end.i);
+        System.out.println("vertical dist : " + end.j);
 
         feat = new HashMap<Integer, Grid>();
         int count = 0;
-        for(int i = start.i; i <= end.i; i++) {
-            for(int j = start.j; j <= end.j; j++) {
+        for(int i = start.i; i < end.i; i++) {
+            System.out.println(" i : " + i);
+            for(int j = start.j; j < end.j; j++) {
+                System.out.println(" j : " + j);
                 Color c = new Color(img.getRGB(i, j));
                 if(c != Color.white) {
                     count++;
